@@ -57,6 +57,49 @@ author:
     - Aliep Alberto Gonzalez y Diaz a.k.a el bankero solitario  elbankero@toomuchmoney.com
 '''
 
+EXAMPLES=r'''
+- name: Exec cert check on all  servers
+  cert_checker:
+    port: "{{ item.value.port | d(443) }}"
+    send_mail: "{{ item.value.send_mail | d(true) }}"
+    from_address: 'certchecker@bankero.com'
+    to_address: 'gsp'
+    servers: "{{ item.key }}"
+    timeout: "{{ timeout | d(6) }}"
+    alert_on_days_before_expiry: "{{ alert_on_days_before_expiry | d(30) }}"
+  with_dict: "{{ servers }}"
+  tags:
+    - all_servers
+    
+send_mail: True
+alert_on_days_before_expiry: 5000
+timeout: 4
+from_address: 'certchecker@bankero.com'
+to_address: 'gsp'
+port: 443
+
+
+servers:
+  www.oracle.com:
+    group: database
+    port: 443
+  www.postgresql.org:
+    group: database
+    port: 443
+  www.rbc.com:
+    port: 443
+    group: finance
+  www.abc.es:
+    port: 443 # No port given take default
+    group: news
+  cuba.cu:
+    port: 80 # No SSL here should not exit
+    group: news
+    send_mail: False # do not send mail regardless of the expiration date
+  www.network.com:
+    port: 58292 # test conn timeout, random port likely to be closed
+    group: news
+'''
 import datetime
 import socket
 import ssl
