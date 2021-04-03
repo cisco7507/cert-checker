@@ -1,0 +1,29 @@
+---
+- name: Exec cert check on all  servers
+  cert_checker:
+    port: "{{ item.value.port | d(443) }}"
+    send_mail: "{{ item.value.send_mail | d(true) }}"
+    from_address: 'certchecker@bankero.com'
+    to_address: 'gsp'
+    servers: "{{ item.key }}"
+    timeout: "{{ timeout | d(6) }}"
+    alert_on_days_before_expiry: "{{ alert_on_days_before_expiry | d(30) }}"
+  with_dict: "{{ servers }}"
+  tags:
+    - all_servers
+
+- name: Exec cert check on all news servers
+  cert_checker:
+    port: "{{ item.value.port | d(443) }}"
+    send_mail: "{{ item.value.send_mail | d(true) }}"
+    from_address: 'certchecker-1@bankero.com'
+    to_address: 'gsp'
+    servers: "{{ item.key }}"
+    timeout: "{{ timeout | d(6) }}"
+    group: "{{ item.value.group | d(none) }}"
+    alert_on_days_before_expiry: "{{ alert_on_days_before_expiry | d(30) }}"
+  when:  item.value.group == 'news' and item.value.group is defined
+  with_dict: "{{ servers }}"
+  tags:
+    - news_servers
+

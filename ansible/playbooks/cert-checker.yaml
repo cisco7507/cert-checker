@@ -1,0 +1,7 @@
+- name: Check certs
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  roles:
+    - cert-checker

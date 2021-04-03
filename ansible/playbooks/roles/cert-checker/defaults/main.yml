@@ -1,0 +1,31 @@
+---
+# defaults file for cert-checker
+
+send_mail: True
+alert_on_days_before_expiry: 5000
+timeout: 4
+from_address: 'certchecker@bankero.com'
+to_address: 'gsp'
+port: 443
+
+
+servers:
+  www.oracle.com:
+    group: database
+    port: 443
+  www.postgresql.org:
+    group: database
+    port: 443
+  www.rbc.com:
+    port: 443
+    group: finance
+  www.abc.es:
+    port: 443 # No port given take default
+    group: news
+  cuba.cu:
+    port: 80 # No SSL here
+    group: news
+    #send_mail: False # do not send mail regardless)
+  #www.network.com:
+  #  port: 58292 # test conn timeout; port likely to be closed
+  #  group: news

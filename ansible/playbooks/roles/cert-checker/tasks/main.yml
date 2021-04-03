@@ -1,0 +1,4 @@
+---
+# tasks file for cert-checker
+- name: Check SSL certificates for expiry
+  include: cert-checker.yaml
