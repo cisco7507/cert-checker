@@ -57,7 +57,7 @@ author:
     - Aliep Alberto Gonzalez y Diaz a.k.a el bankero solitario  elbankero@toomuchmoney.com
 '''
 
-EXAMPLES=r'''
+EXAMPLES = r'''
 - name: Exec cert check on all  servers
   cert_checker:
     port: "{{ item.value.port | d(443) }}"
@@ -104,6 +104,7 @@ import datetime
 import socket
 import ssl
 import subprocess
+
 
 def ssl_expiry_datetime(server, port, timeout, module):
     # ssl_info['subject'][-1:][0][0][-1:][0]
