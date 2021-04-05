@@ -1,4 +1,5 @@
-#!/Users/gsp/python/cert-checker/venv/bin/python3
+#!/home/gsp/python/cert-checker/venv/bin/python3
+
 # -*- coding: utf-8 -*-
 import re
 import sys
